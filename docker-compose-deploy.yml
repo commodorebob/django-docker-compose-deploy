@@ -1,5 +1,7 @@
 services:
   app:
+    image: commodorebob/django-docker-compose-deploy:latest
+    container_name: djangoapp
     build:
       context: .
     restart: always

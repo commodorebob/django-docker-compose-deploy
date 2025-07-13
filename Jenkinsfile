@@ -40,9 +40,11 @@ pipeline {
                     echo "Deploying to EC2 Instance"
                     bat '''
                     @echo off
-                    scp -o StrictHostKeyChecking=no -i C:\\Users\\commo\\Downloads\\jenkins-key.pem docker-compose-deploy.yml ec2-user@%EC2_IP%:~/docker-compose-deploy.yml
-                    scp -o StrictHostKeyChecking=no -i C:\\Users\\commo\\Downloads\\jenkins-key.pem .env.prod ec2-user@%EC2_IP%:~/.env.prod
-                    ssh -o StrictHostKeyChecking=no -i C:\\Users\\commo\\Downloads\\jenkins-key.pem ec2-user@%EC2_IP% "docker-compose -f ~/docker-compose-deploy.yml --env-file ~/.env.prod pull && docker-compose -f ~/docker-compose-deploy.yml --env-file ~/.env.prod up -d"
+                    icacls "C:\\Users\\commo\\Downloads\\django-server-key-jenkins.pem" /inheritance:r /grant:r "SYSTEM:F"
+
+                    scp -o StrictHostKeyChecking=no -i C:\\Users\\commo\\Downloads\\django-server-key-jenkins.pem docker-compose-deploy.yml ec2-user@%EC2_IP%:~/docker-compose-deploy.yml
+                    scp -o StrictHostKeyChecking=no -i C:\\Users\\commo\\Downloads\\django-server-key-jenkins.pem .env.prod ec2-user@%EC2_IP%:~/.env.prod
+                    ssh -o StrictHostKeyChecking=no -i C:\\Users\\commo\\Downloads\\django-server-key-jenkins.pem ec2-user@%EC2_IP% "docker-compose -f ~/docker-compose-deploy.yml --env-file ~/.env.prod pull && docker-compose -f ~/docker-compose-deploy.yml --env-file ~/.env.prod up -d"
                     '''
                 }
             }
