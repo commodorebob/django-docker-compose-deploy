@@ -26,9 +26,9 @@ pipeline {
                     @echo off
                     icacls "C:\\Users\\commo\\Downloads\\django-server-key-jenkins.pem" /inheritance:r /grant:r "SYSTEM:F"
 
-                    ssh -o StrictHostKeyChecking=no -i C:\\Users\\commo\\Downloads\\django-server-key-jenkins.pem ec2-user@%EC2_IP% "rm -R ~/"django-docker-compose-deploy && git clone https://github.com/commodorebob/django-docker-compose-deploy.git && mv ~/django-docker-compose-deploy/.env.prod ~/django-docker-compose-deploy/.env"
+                    ssh -o StrictHostKeyChecking=no -i C:\\Users\\commo\\Downloads\\django-server-key-jenkins.pem ec2-user@%EC2_IP% "rm -R ~/django-docker-compose-deploy && git clone https://github.com/commodorebob/django-docker-compose-deploy.git && mv ~/django-docker-compose-deploy/.env.prod ~/django-docker-compose-deploy/.env"
                     ssh -o StrictHostKeyChecking=no -i C:\\Users\\commo\\Downloads\\django-server-key-jenkins.pem ec2-user@%EC2_IP% "docker-compose -f ~/django-docker-compose-deploy/docker-compose-deploy.yml up -d"
-                    ssh -o StrictHostKeyChecking=no -i C:\\Users\\commo\\Downloads\\django-server-key-jenkins.pem ec2-user@%EC2_IP% "rm -R ~/"django-docker-compose-deploy"
+                    ssh -o StrictHostKeyChecking=no -i C:\\Users\\commo\\Downloads\\django-server-key-jenkins.pem ec2-user@%EC2_IP% "rm -R ~/django-docker-compose-deploy"
                     '''
                 }
             }
