@@ -18,22 +18,6 @@ pipeline {
             }
         }
 
-        stage('Push Docker Image') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'docker-login', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-                    script {
-                        echo "Pushing Docker Image to Docker Hub"
-                        bat '''
-                        @echo off
-                        echo Logging into Docker Hub...
-                        echo %PASS% | docker login -u %USER% --password-stdin
-                        docker push %ImageRegistry%/%JOB_NAME%:%BUILD_NUMBER%
-                        '''
-                    }
-                }
-            }
-        }
-
         stage('Deploy to EC2') {
             steps {
                 script {
@@ -42,9 +26,9 @@ pipeline {
                     @echo off
                     icacls "C:\\Users\\commo\\Downloads\\django-server-key-jenkins.pem" /inheritance:r /grant:r "SYSTEM:F"
 
-                    scp -o StrictHostKeyChecking=no -i C:\\Users\\commo\\Downloads\\django-server-key-jenkins.pem docker-compose-deploy.yml ec2-user@%EC2_IP%:~/docker-compose-deploy.yml
-                    scp -o StrictHostKeyChecking=no -i C:\\Users\\commo\\Downloads\\django-server-key-jenkins.pem .env.prod ec2-user@%EC2_IP%:~/.env.prod
-                    ssh -o StrictHostKeyChecking=no -i C:\\Users\\commo\\Downloads\\django-server-key-jenkins.pem ec2-user@%EC2_IP% "docker-compose -f ~/docker-compose-deploy.yml --env-file ~/.env.prod pull && docker-compose -f ~/docker-compose-deploy.yml --env-file ~/.env.prod up -d"
+                    ssh -o StrictHostKeyChecking=no -i C:\\Users\\commo\\Downloads\\django-server-key-jenkins.pem ec2-user@%EC2_IP% "rm -R ~/"django-docker-compose-deploy && git clone https://github.com/commodorebob/django-docker-compose-deploy.git && mv ~/django-docker-compose-deploy/.env.prod ~/django-docker-compose-deploy/.env"
+                    ssh -o StrictHostKeyChecking=no -i C:\\Users\\commo\\Downloads\\django-server-key-jenkins.pem ec2-user@%EC2_IP% "docker-compose -f ~/django-docker-compose-deploy/docker-compose-deploy.yml up -d"
+                    ssh -o StrictHostKeyChecking=no -i C:\\Users\\commo\\Downloads\\django-server-key-jenkins.pem ec2-user@%EC2_IP% "rm -R ~/"django-docker-compose-deploy"
                     '''
                 }
             }
