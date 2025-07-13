@@ -1,6 +1,6 @@
 services:
   app:
-    image: commodorebob/django-docker-compose-deploy:latest
+    image: commodorebob/garret-django-final:latest
     container_name: djangoapp
     build:
       context: .

@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script {
                     echo "Building Docker Image"
-                    powershell "docker build -t ${ImageRegistry}/django-docker-compose-deploy:${BUILD_NUMBER} ."
+                    powershell "docker build -t ${ImageRegistry}/${JOB_NAME}:${BUILD_NUMBER} ."
                 }
             }
         }
@@ -27,7 +27,7 @@ pipeline {
                         @echo off
                         echo Logging into Docker Hub...
                         echo %PASS% | docker login -u %USER% --password-stdin
-                        docker push %ImageRegistry%/django-docker-compose-deploy:%BUILD_NUMBER%
+                        docker push %ImageRegistry%/%JOB_NAME%:%BUILD_NUMBER%
                         '''
                     }
                 }
