@@ -1,0 +1,51 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ action }} Inventory - Henry Books{% endblock %}
+
+{% block content %}
+<h1>{{ action }} Inventory Record</h1>
+
+<form method="post" class="mt-4">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="book" class="form-label">Book *</label>
+                <select class="form-control" id="book" name="book" required>
+                    <option value="">Select a book...</option>
+                    {% for book in books %}
+                        <option value="{{ book.id }}" 
+                                {% if inventory and inventory.Book.id == book.id %}selected{% endif %}>
+                            {{ book.Title }} by {{ book.Author }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="mb-3">
+                <label for="branch" class="form-label">Branch *</label>
+                <select class="form-control" id="branch" name="branch" required>
+                    <option value="">Select a branch...</option>
+                    {% for branch in branches %}
+                        <option value="{{ branch.id }}" 
+                                {% if inventory and inventory.Branch.id == branch.id %}selected{% endif %}>
+                            {{ branch.BranchName }} - {{ branch.City }}, {{ branch.State }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="mb-3">
+                <label for="quantity" class="form-label">Quantity *</label>
+                <input type="number" class="form-control" id="quantity" name="quantity" 
+                       value="{{ inventory.Quantity|default:'0' }}" required min="0">
+            </div>
+        </div>
+    </div>
+    
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary">{{ action }} Inventory Record</button>
+        <a href="{% url 'inventory_list' %}" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+{% endblock %}

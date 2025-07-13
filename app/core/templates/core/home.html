@@ -1,0 +1,44 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Home - Henry Books{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">Henry Books Library Management</h1>
+        <p class="lead">System for managing books and library branches.</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">Books</h5>
+                <p class="card-text">Manage your book collection</p>
+                <a href="{% url 'book_list' %}" class="btn btn-primary">View Books</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">Branches</h5>
+                <p class="card-text">Manage store branches</p>
+                <a href="{% url 'branch_list' %}" class="btn btn-primary">View Branches</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">Inventory</h5>
+                <p class="card-text">Manage book inventory</p>
+                <a href="{% url 'inventory_list' %}" class="btn btn-primary">View Inventory</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

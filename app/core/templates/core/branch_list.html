@@ -1,0 +1,50 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Branches - Henry Books{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Branches</h1>
+    <a href="{% url 'branch_create' %}" class="btn btn-success">Add New Branch</a>
+</div>
+
+{% if branches %}
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Branch Name</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Zip</th>
+                <th>Phone</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for branch in branches %}
+            <tr>
+                <td>{{ branch.id }}</td>
+                <td>{{ branch.BranchName }}</td>
+                <td>{{ branch.Address }}</td>
+                <td>{{ branch.City }}</td>
+                <td>{{ branch.State }}</td>
+                <td>{{ branch.Zip }}</td>
+                <td>{{ branch.Phone|default:"N/A" }}</td>
+                <td>
+                    <a href="{% url 'branch_edit' branch.pk %}" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="{% url 'branch_delete' branch.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="alert alert-info">
+    <p>No branches found. <a href="{% url 'branch_create' %}">Add the first branch</a>.</p>
+</div>
+{% endif %}
+{% endblock %}

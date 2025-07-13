@@ -1,0 +1,46 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Inventory - Henry Books{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Inventory</h1>
+    <a href="{% url 'inventory_create' %}" class="btn btn-success">Add New Inventory Record</a>
+</div>
+
+{% if inventory %}
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Book</th>
+                <th>Author</th>
+                <th>Branch</th>
+                <th>Quantity</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in inventory %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.Book.Title }}</td>
+                <td>{{ item.Book.Author }}</td>
+                <td>{{ item.Branch.BranchName }}</td>
+                <td>{{ item.Quantity }}</td>
+                <td>
+                    <a href="{% url 'inventory_edit' item.pk %}" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="{% url 'inventory_delete' item.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="alert alert-info">
+    <p>No inventory records found. <a href="{% url 'inventory_create' %}">Add the first inventory record</a>.</p>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Books - Henry Books{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Books</h1>
+    <a href="{% url 'book_create' %}" class="btn btn-success">Add New Book</a>
+</div>
+
+{% if books %}
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Author</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td>{{ book.id }}</td>
+                <td>{{ book.Author }}</td>
+                <td>{{ book.Title }}</td>
+                <td>{{ book.Description|truncatewords:10 }}</td>
+                <td>${{ book.Price|default:"N/A" }}</td>
+                <td>
+                    <a href="{% url 'book_edit' book.pk %}" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="{% url 'book_delete' book.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="alert alert-info">
+    <p>No books found. <a href="{% url 'book_create' %}">Add the first book</a>.</p>
+</div>
+{% endif %}
+{% endblock %}

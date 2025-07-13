@@ -1,8 +1,5 @@
 from django.db import models
 
-class Sample(models.Model):
-    attachment = models.FileField()
-
 class Book(models.Model):
     Author = models.CharField(max_length=100)
     Title = models.CharField(max_length=200)
