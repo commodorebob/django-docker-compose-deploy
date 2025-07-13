@@ -1,7 +1,5 @@
 services:
   app:
-    image: commodorebob/garret-django-final:10
-    container_name: djangoapp
     build:
       context: .
     restart: always
