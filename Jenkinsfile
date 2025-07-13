@@ -27,7 +27,7 @@ pipeline {
                         @echo off
                         echo Logging into Docker Hub...
                         echo %PASS% | docker login -u %USER% --password-stdin
-                        docker push %ImageRegistry%/%JOB_NAME%:%BUILD_NUMBER%
+                        docker push %ImageRegistry%/django-docker-compose-deploy:%BUILD_NUMBER%
                         '''
                     }
                 }
