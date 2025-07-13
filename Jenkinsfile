@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script {
                     echo "Building Docker Image"
-                    powershell "docker build -t ${ImageRegistry}/${JOB_NAME}:${BUILD_NUMBER} ."
+                    powershell "docker build -t ${ImageRegistry}/django-docker-compose-deploy:${BUILD_NUMBER} ."
                 }
             }
         }
